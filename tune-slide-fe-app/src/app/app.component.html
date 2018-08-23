@@ -1,5 +1,10 @@
-<div class="col-12">
-  <section class="col-12 col-sm-8 col-lg-6">
-    <router-outlet></router-outlet>
-  </section>
+<div class="root d-flex flex-column">
+  <app-header></app-header>
+  <main class="fluid-container">
+    <div class="d-flex justify-content-center align-items-center mx-3 mx-sm-0 my-3 my-sm-5 p-0">
+      <section class="col-12 col-sm-9 col-xl-7 p-0">
+        <router-outlet></router-outlet>
+      </section>
+    </div>
+  </main>
 </div>

@@ -12,4 +12,8 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
   }
 
+  onViewDocs() {
+    window.open('https://github.com/brittanylau/tune-slide', '_blank');
+  }
+
 }
