@@ -8,6 +8,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SliderComponent } from './shared/components/slider/slider.component';
 import { PlaylistConfigComponent } from './pages/playlist-config/playlist-config.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { PlaylistConfigComponent } from './pages/playlist-config/playlist-config
     BrowserModule,
     AppRoutingModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
