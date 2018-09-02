@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-slider',
@@ -11,19 +10,17 @@ export class SliderComponent implements OnInit {
   @Input() max: number;
   @Input() showTooltip: boolean;
 
-  value: FormControl;
-  tooltipValue: number;
+  value: number;
+  default: number;
 
-  constructor() {
-    this.value = new FormControl(25);
-    this.tooltipValue = this.value.value;
-  }
+  constructor() { }
 
   ngOnInit() {
+    this.value = Math.ceil((this.min + this.max) / 2);
   }
 
-  onSliderChange() {
-    this.tooltipValue = this.value.value;
+  onSliderChange(event) {
+    this.value = event.target.valueAsNumber;
   }
 
 }
