@@ -93,17 +93,3 @@ input:focus ~ .highlight {
   -moz-animation: inputHighlighter 0.3s ease;
   animation: inputHighlighter 0.3s ease;
 }
-
-/* ANIMATIONS ================ */
-@-webkit-keyframes inputHighlighter {
-  from { background: #000000;; }
-  to 	{ width: 0; background: transparent; }
-}
-@-moz-keyframes inputHighlighter {
-  from { background: #000000;; }
-  to 	{ width: 0; background: transparent; }
-}
-@keyframes inputHighlighter {
-  from { background: #000000;; }
-  to 	{ width: 0; background: transparent; }
-}

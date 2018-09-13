@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SliderComponent implements OnInit {
   @Input() min: number;
   @Input() max: number;
+  @Input() minLabel: string;
+  @Input() maxLabel: string;
   @Input() showTooltip: boolean;
 
   value: number;

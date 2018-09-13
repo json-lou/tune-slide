@@ -17,52 +17,52 @@
   <div class="col-12">
     <h1 class="col-12 mt-5 pt-5 pb-3"><strong>Let's do some sliding!</strong></h1>
     <div class="col-12 my-5 pb-4">
-      <h3>Playlist Length</h3>
-      <div class="col-12 mt-5">
-        <app-slider #length min="0" max="100"></app-slider>
+      <h3 class="mb-5">Playlist Length</h3>
+      <div class="col-12">
+        <app-slider #length min="0" max="100" minLabel="5" maxLabel="100"></app-slider>
       </div>
     </div>
-    <div class="col-12 d-flex my-5 pb-4">
-      <div class="col-6">
-        <h3>Playlist Content</h3>
-        <div class="col-4 offset-4 d-flex justify-content-center mt-5">
-          <app-slider #content min="0" max="1"></app-slider>
+    <div class="col-12 d-flex flex-wrap my-5 px-0 pb-4">
+      <div class="col-12 col-sm-6 d-flex flex-wrap justify-content-center mb-5 mb-sm-0">
+        <h3 class="col-12 mb-5">Playlist Content</h3>
+        <div class="col-10 p-0">
+          <app-slider #content min="0" max="1" minLabel="Clean" maxLabel="Explicit"></app-slider>
         </div>
       </div>
-      <div class="col-6">
-        <h3>Playlist Privacy</h3>
-        <div class="col-4 offset-4 d-flex justify-content-center mt-5">
-          <app-slider #privacy min="0" max="1"></app-slider>
+      <div class="col-12 col-sm-6 d-flex flex-wrap justify-content-center">
+        <h3 class="col-12 mb-5">Playlist Privacy</h3>
+        <div class="col-10 p-0">
+          <app-slider #privacy min="0" max="1" minLabel="Private" maxLabel="Public"></app-slider>
         </div>
       </div>
     </div>
     <div class="col-12 my-5 pb-4">
-      <h3>Acousticness</h3>
-      <div class="col-12 mt-5">
+      <h3 class="mb-5">Acousticness</h3>
+      <div class="col-12">
         <app-slider #acousticness min="0" max="100"></app-slider>
       </div>
     </div>
     <div class="col-12 my-5 pb-4">
-      <h3>Danceability</h3>
-      <div class="col-12 mt-5">
+      <h3 class="mb-5">Danceability</h3>
+      <div class="col-12">
         <app-slider #danceability min="0" max="100"></app-slider>
       </div>
     </div>
     <div class="col-12 my-5 pb-4">
-      <h3>Instrumentalness</h3>
-      <div class="col-12 mt-5">
+      <h3 class="mb-5">Instrumentalness</h3>
+      <div class="col-12">
         <app-slider #instrumentalness min="0" max="100"></app-slider>
       </div>
     </div>
     <div class="col-12 my-5 pb-4">
-      <h3>Tempo</h3>
-      <div class="col-12 mt-5">
+      <h3 class="mb-5">Tempo</h3>
+      <div class="col-12">
         <app-slider #tempo min="0" max="100"></app-slider>
       </div>
     </div>
     <div class="col-12 my-5 pb-4">
-      <h3>Valence</h3>
-      <div class="col-12 mt-5">
+      <h3 class="mb-5">Valence</h3>
+      <div class="col-12">
         <app-slider #valence min="0" max="100"></app-slider>
       </div>
     </div>
