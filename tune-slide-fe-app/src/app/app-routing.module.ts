@@ -8,7 +8,7 @@ import { PlaylistConfigComponent } from './pages/playlist-config/playlist-config
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: LandingComponent },
-  { path: 'playlist/one', component: PlaylistConfigComponent },
+  { path: 'playlist/create', component: PlaylistConfigComponent },
 ];
 
 @NgModule({

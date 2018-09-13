@@ -10,7 +10,9 @@ export class SliderComponent implements OnInit {
   @Input() max: number;
   @Input() minLabel: string;
   @Input() maxLabel: string;
-  @Input() showTooltip: boolean;
+  @Input() minIcon: string;
+  @Input() maxIcon: string;
+  @Input() showNumber: string;
 
   value: number;
   default: number;

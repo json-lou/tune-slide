@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Playlist } from 'src/app/shared/models/playlist.model';
 import { SliderComponent } from '../../shared/components/slider/slider.component';
 
 @Component({
@@ -28,13 +29,13 @@ export class PlaylistConfigComponent implements OnInit {
     this.playlistGroup = new FormGroup({
       playlistName: this.playlistName,
       playlistDescription: this.playlistDescription,
-    })
+    });
   }
 
   ngOnInit() {
   }
 
-  booleanFilter(value: number): Boolean {
+  booleanFilter(value: number): boolean {
     if (value === 1) {
       return true;
     } else {
@@ -42,24 +43,28 @@ export class PlaylistConfigComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(): Playlist {
     const playlistConfig = {
       name: this.playlistName.value,
       description: this.playlistDescription.value,
-      length: this.length.value,
-      settings: {
+      playlistSettings: {
+        length: this.length.value,
         content: this.booleanFilter(this.content.value),
         privacy: this.booleanFilter(this.privacy.value),
+      },
+      trackSettings: {
         acousticness: this.acousticness.value,
         danceability: this.danceability.value,
         instrumentalness: this.instrumentalness.value,
         tempo: this.tempo.value,
         valence: this.valence.value,
       }
-    }
-    if (playlistConfig.name !== '') {
+    };
+    if (playlistConfig.name !== '' && playlistConfig.playlistSettings.length !== 0) {
       console.log(playlistConfig);
       return playlistConfig;
+    } else {
+      return null;
     }
   }
 
