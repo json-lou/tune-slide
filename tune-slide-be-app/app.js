@@ -1,144 +1,126 @@
-var etl = require('./etl.js');
-var fs = require('fs');
-var glob = require('glob');
-
-// Express setup
-var express = require('express'); // Express web server framework
-var app = express();
-
-// Mongo setup
-var mongo = require('mongodb');
-var MongoClient = mongo.MongoClient;
-var url = "mongodb://localhost:27017/tuneslide";
-var tuneslideDb = "tuneslide";
-var tracksCollection = "tracks";
+// TUNESLIDE
 
 // Spotify API setup
-var SpotifyWebApi = require('spotify-web-api-node');
-var scopes = ['playlist-read-private', 'playlist-read-collaborative', 'playlist-modify-private', 'playlist-modify-public'];
-var redirectUri = 'http://localhost:8888/callback';
-var clientSecret = '73d6497dbb394772a12f0bdeb0d94318';
-var clientId = '0e7af034e26d4e24adf7f3deb85dc48d';
-var userId = 'brittanylau';
-var accessToken = 'BQAT-w02oJE4ztqjocV1vjE9-0_BDJZdKxV1aXE3jgxehiBiVsL7maZ4c3karKNE2DXOC56qVJ85PnKOuiIN8y1374_EWyma__1CloCKkw0Qaa67wAc7pzBbbg18OSzgcnRA4OYXfRX6N3WeqEZDOqIZPhqF3fNDBzj35E_rU9wnsK38ZxY76P59mZNXc7S_J6F6t64w0KBFoWq0_Mq3H3XBOVCf4Uut';
-var spotifyApi = new SpotifyWebApi({ redirectUri, clientSecret, clientId });
+var SpotifyWebApi = require('spotify-web-api-node'),
+    redirectUri = 'http://localhost:8888/callback',
+    clientSecret = '73d6497dbb394772a12f0bdeb0d94318',
+    clientId = '0e7af034e26d4e24adf7f3deb85dc48d';
+
+spotifyApi = new SpotifyWebApi({ redirectUri, clientSecret, clientId });
+
+// Spotify access token setup
+var userId = 'brittanylau'; // remove when done testing
+var accessToken = 'BQABRY-S9kJ3Ma4YOw_AmdSFn1TUsqpyfZRbE_EQ4r3wbe9B2tWt8JmMTvULT9FAHwx4l7ZEssDIIYe5KW4gK3V5wa4RD5Fbylh7vboweXNpr4DN8PGJBSDh7LflGYQ7b0VhmRmT8Gt7Mwe-pDkKc3RZ61M7Hss4b-TYj1IQPC6ANm2IKJcm_zjX8FHp6INnhbRw9mr4GObwhCb0ik4XWWKM7x-rMQ7t';
 spotifyApi.setAccessToken(accessToken);
+
+// Mongo setup
+var mongo = require('mongodb'),
+    MongoClient = mongo.MongoClient,
+    url = "mongodb://localhost:27017/tuneslide";
 
 // User input (implementing later)
 
-var userPlistName;
-var userDescription;
+var myPlistName = 'Tuneslide';
+var myPlistDescription;
 var plistSettings; // length, content, privacy
 var trackSettings; // acousticness, danceability, instrumentalness, tempo, valence
 
-const linebreak = '================================================================================';
-
 // ============================================================================
 
-console.log(linebreak);
-console.log('Running Tuneslide for ' + userId + ' ...');
-console.log(linebreak);
-
-// AUTHENTICATION =============================================================
-
-/*
-console.log('Authentication token resources ...')
-
-var authorizeURL = spotifyApi.createAuthorizeURL(scopes);
-
-console.log('Authorize URL : ' + authorizeURL);
-
-var code = 'AQAVaTL3tH6FNasQhPbZL45VZv146rXr2Yg7tDgzM7EReDbqdYLskcGdRFFCJsRiUtb29JhphzF0In7s-HcglD7Zmpa4haoFFG00Ug8pP3sfVkCpkw2q4RzYMkmco_7vGlb6DKcobrn1UdQLJUD5ktWoBuiRcicZMnaeQqaWoKd4sZUw1B6paupxduvIITfpZGA-R0p4gzt4XuQzqhAK9FlFb1ktB0f96lzRuGE6e42x5LrQjyHvdwNyXGS9iJFjqbU-33t4g1VDhi9B7q7yRR7TZbSZcnIIfMJLcaLbpJr_gme0W0FMMC-QcoiIyUbGFnfrW_Ts77d1Oyg';
-
-spotifyApi.authorizationCodeGrant(code).then(
-    function(data) {
-        console.log('The token expires in ' + data.body['expires_in']);
-        console.log('The access token is ' + data.body['access_token']);
-        console.log('The refresh token is ' + data.body['refresh_token']);
-        
-        // Set the access token on the API object to use it in later calls
-        spotifyApi.setAccessToken(data.body['access_token']);
-        spotifyApi.setRefreshToken(data.body['refresh_token']);
-    },
-    function(err) {
-        console.log('Error with authentication code.', err);
-    }
-);
-
-console.log(linebreak);
-
-*/
-
-// PLAYLIST CREATION ==========================================================
-
-/*
-console.log('Creating user playlist ...');
-
-spotifyApi.createPlaylist(userId, userPlistName, plistSettings.privacy,
-    function(err, data) {
+function createPlaylist() {
+    spotifyApi.createPlaylist(userId, myPlistName, { 'public': false }, function(err) {
         if (err) {
-            console.error('Error creating playlist');
-        } else {
-            console.log('Created playlist!');
+            console.log('Error creating playlist', err);
         }
-    }
-);
-*/
-
-// RETRIEVING USER TRACKS FROM PLAYLISTS ======================================
-
-console.log('Retrieving user tracks from playlists ...');
-
-function dataReset() {
-    var dataDir = glob('./data/*');
-    if (fs.existsSync(dataDir)) {
-        fs.unlinkSync(dataDir, function(err) {
-            if (err) throw err;
-        });
-    }
+    })
 }
 
 function dbReset() {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
-        var tuneslideDb = db.db(tuneslideDb);
-        tuneslideDb.collection(tracksCollection).deleteMany({});
+        db.db("tuneslide").collection("tracks").deleteMany({});
         db.close();
     });
 }
  
-function getTracks() {
-
-    dataReset();
-    dbReset();
-
-    // Retrieving user's tracks
+function getPlaylists() {
     spotifyApi.getUserPlaylists(userId)
     .then(function(data) {
-
-        var result = data.body.items;
-        var playlists = [];
-
-        result.forEach(function(element) {
-            var playlist = { name: element.name, id: element.id }
-            playlists.push(playlist);
-        })
-
+        var playlists = data.body.items;
         var length = playlists.length; // maximum from the API is 20 playlists
+        playlists.forEach(function(element, index) {
+            playlists[index] = { name: element.name, id: element.id }; // name is really only for testing purposes
+        })
 
         console.log('Successfully retrieved ' + length + ' playlists:');
         console.log(playlists);
-        console.log(linebreak);
 
-        // ETL component: extracting tracks from playlists, loading into db
         playlists.forEach(function(element) {
-            etl.getPlaylistTracks(userId, element.id, element.name);
+            getTracks(userId, element.id);
         })
     },
-    
     function(err) {
-        console.log('Error retrieving playlists.', err)
+        console.log('Error retrieving user playlists.', err)
     })
 }
 
-getTracks();
+function getTracks(userId, playlistId) {
+    spotifyApi.getPlaylistTracks(userId, playlistId, {
+        offset: 0,
+        limit: 100, // maximum by the API
+        fields: 'items(track(id))' // returns array of track objects with ID field
+    })
+    .then(function(data) {
+        var tracks = data.body.items;
+
+        // Create an array of the track IDs in the playlist
+        tracks.forEach(function(element, index) {
+            tracks[index] = element.track.id;
+        })
+        
+        getFeatures(tracks);
+    },
+    function(err) {
+        console.log('Error retrieving playlist tracks', err);
+    })
+}
+
+function getFeatures(tracks) {
+    spotifyApi.getAudioFeaturesForTracks(tracks)
+    .then(function(data) {
+        var features = data.body.audio_features;
+
+        // Include only the fields we need for querying
+        features.forEach(function(element, index) {
+            features[index] = {
+                id: element.id, // error received saying "Cannot read property 'id' of null"
+                acousticness: element.acousticness,
+                danceability: element.danceability,
+                instrumentalness: element.instrumentalness,
+                tempo: element.tempo,
+                valence: element.valence
+                
+            };
+        })
+        
+        // Insert into tuneslide.tracks
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            db.db("tuneslide").collection("tracks").insertMany(features, function(err) {
+                if (err) throw err;
+            })
+            db.close();
+        })
+    }, function(err) {
+        console.log('Error retrieving track features', err);
+    })
+}
+
+function tuneslide() {
+    console.log("\nWelcome to Tuneslide, " + userId + "!\n");
+    // createPlaylist();
+    dbReset();
+    getPlaylists();
+}
+
+tuneslide();
