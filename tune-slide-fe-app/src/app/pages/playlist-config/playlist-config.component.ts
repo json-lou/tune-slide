@@ -53,11 +53,11 @@ export class PlaylistConfigComponent implements OnInit {
         privacy: this.booleanFilter(this.privacy.value),
       },
       trackSettings: {
-        acousticness: this.acousticness.value,
-        danceability: this.danceability.value,
-        instrumentalness: this.instrumentalness.value,
-        tempo: this.tempo.value,
-        valence: this.valence.value,
+        acousticness: this.acousticness.value / 100,
+        danceability: this.danceability.value / 100,
+        instrumentalness: this.instrumentalness.value / 100,
+        tempo: this.tempo.value / 100,
+        valence: this.valence.value / 100,
       }
     };
     if (playlistConfig.name !== '' && playlistConfig.playlistSettings.length !== 0) {
