@@ -1,0 +1,22 @@
+$background-grey: #efefef;
+$text-grey: #565656;
+$tuneslide-blue: #caebf2;
+$tuneslide-red: #ff3b3f;
+
+body {
+  font-family: 'Avenir';
+  background-color: $background-grey;
+}
+
+h1 {
+  font-size: 56px;
+}
+
+p {
+  font-size: 22px;
+}
+
+.btn-tuneslide {
+  background-color: $tuneslide-blue;
+  color: $text-grey;
+}

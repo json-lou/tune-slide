@@ -1,0 +1,31 @@
+<div class="col-12 p-0">
+  <div class="col-12 d-flex justify-content-center align-items-center p-0">
+    <div *ngIf="minIcon" class="col-auto p-0">
+      <img src="src/assets/emoji/{{ minIcon }}" style="width:50px">
+    </div>
+    <div *ngIf="minLabel" class="col-auto p-0">
+      <h5>{{ minLabel }}</h5>
+    </div>
+    <div class="col mx-3 p-0">
+      <input 
+        type="range"
+        class="slider"
+        [min]="min"
+        [max]="max"
+        [value]="value"
+        (input)="onSliderChange($event)"
+      >
+    </div>
+    <div *ngIf="maxIcon" class="col-auto p-0">
+      <img src="src/assets/emoji/{{ maxIcon }}" style="width:50px">
+    </div>
+    <div *ngIf="maxLabel" class="col-auto p-0">
+      <h5>{{ maxLabel }}</h5>
+    </div>
+  </div>
+  <div *ngIf="showNumber==='true'" class="col-12 mt-4 p-0">
+    <h4 class="text-center">
+      <span><strong>{{ value }} songs</strong></span>
+    </h4>
+  </div>
+</div>

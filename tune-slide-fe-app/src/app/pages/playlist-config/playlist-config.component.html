@@ -1,0 +1,72 @@
+<form [formGroup]="playlistGroup" class="col-12 d-flex flex-wrap justify-content-center text-center mt-3 p-0">
+  <h1 class="col-12 px-0 pb-4"><strong>What's your playlist style?</strong></h1>
+  <div class="col-12 p-0">
+    <div class="group mt-5 pb-4">      
+      <input type="text" formControlName="playlistName" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Playlist Name</label>
+    </div>
+    <div class="group my-5 pb-2">      
+      <input type="text" formControlName="playlistDescription" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Description</label>
+    </div>
+  </div>
+  <div class="col-12 p-0">
+    <h1 class="col-12 mt-5 px-0 pt-5 pb-3"><strong>Let's do some sliding!</strong></h1>
+    <div class="col-12 my-5 px-0 pb-4">
+      <h3 class="mb-5">Playlist Length</h3>
+      <div class="col-12">
+        <app-slider #length min="0" max="100" minLabel="&nbsp;&nbsp;0" maxLabel="100" showNumber="true"></app-slider>
+      </div>
+    </div>
+    <div class="col-12 d-flex flex-wrap my-5 px-0 pb-4">
+      <div class="col-12 col-md-6 d-flex flex-wrap justify-content-center mb-5 mb-md-0 p-0">
+        <h3 class="col-12 mb-5">Playlist Content</h3>
+        <div class="col-8 col-md-10 col-lg-9 col-xl-8 p-0">
+          <app-slider #content min="0" max="1" minLabel="Clean" maxLabel="Explicit"></app-slider>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-wrap justify-content-center p-0">
+        <h3 class="col-12 mb-5">Playlist Privacy</h3>
+        <div class="col-8 col-md-10 col-lg-9 col-xl-8 p-0">
+          <app-slider #privacy min="0" max="1" minLabel="Private" maxLabel="Public"></app-slider>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 my-5 px-0 pb-3 pb-sm-4">
+      <h3 class="mb-5">Acousticness</h3>
+      <div class="col-12">
+        <app-slider #acousticness min="0" max="100" minIcon="acoustic-1.png" maxIcon="acoustic-2.png"></app-slider>
+      </div>
+    </div>
+    <div class="col-12 my-5 px-0 pb-3 pb-sm-4">
+      <h3 class="mb-5">Danceability</h3>
+      <div class="col-12">
+        <app-slider #danceability min="0" max="100" minIcon="dance-1.png" maxIcon="dance-2.png"></app-slider>
+      </div>
+    </div>
+    <div class="col-12 my-5 px-0 pb-3 pb-sm-4">
+      <h3 class="mb-5">Instrumentalness</h3>
+      <div class="col-12">
+        <app-slider #instrumentalness min="0" max="100" minIcon="instrumental-1.png" maxIcon="instrumental-2.png"></app-slider>
+      </div>
+    </div>
+    <div class="col-12 my-5 px-0 pb-3 pb-sm-4">
+      <h3 class="mb-5">Tempo</h3>
+      <div class="col-12">
+        <app-slider #tempo min="0" max="100" minIcon="tempo-1.png" maxIcon="tempo-2.png"></app-slider>
+      </div>
+    </div>
+    <div class="col-12 my-5 px-0 pb-3 pb-sm-4">
+      <h3 class="mb-5">Valence</h3>
+      <div class="col-12">
+        <app-slider #valence min="0" max="100" minIcon="valence-1.png" maxIcon="valence-2.png"></app-slider>
+      </div>
+    </div>
+    <button class="col-5 col-sm-4 btn btn-lg btn-tuneslide mt-5 mr-2 py-3" routerLink="/home">Back</button>
+    <button class="col-5 col-sm-4 btn btn-lg btn-tuneslide mt-5 ml-2 py-3" (click)="onSubmit()">Continue</button>
+  </div>
+</form>
